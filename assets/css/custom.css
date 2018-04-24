@@ -1,0 +1,364 @@
+/*=============================================================
+    Authour URI: www.binarytheme.com
+    License: Commons Attribution 3.0
+
+    http://creativecommons.org/licenses/by/3.0/
+
+    100% To use For Personal And Commercial Use.
+    IN EXCHANGE JUST GIVE US CREDITS AND TELL YOUR FRIENDS ABOUT US
+   
+    ========================================================  */
+
+/*==============================================
+    MAIN BOX  STYLES    
+    =============================================*/
+.main-box {
+    text-align:center;
+    padding:20px;
+    border-radius:5px;
+    -moz-border-radius:5px ;
+    -webkit-border-radius:5px;
+    margin-bottom:40px;
+}
+    .main-box a,.main-box a:hover {
+        color:#fff;
+        text-decoration:none;
+
+    }
+.mb-dull {
+    background-color:#8F8F2C;
+}
+.mb-red {
+    background-color:#d36f2e;
+}
+.mb-pink {
+    background-color:#FF2F71;
+}
+    .main-box h5 {
+        font-size:16px;
+        font-weight:800;
+        text-transform:uppercase;
+    }
+/*==============================================
+    CHAT WINDOW  STYLES    
+    =============================================*/
+
+.chat-widget-main {
+    max-height:550px;
+    padding:20px;
+    overflow:auto;
+}
+
+.chats #li{
+    margin-top: 8px;
+    padding-top: 8px;
+}
+
+.chats .by-me .chat-meta{
+    font-size: 1em;
+    color: #999;
+}
+
+.chats .by-me .chat-content{
+    margin-left: 20px;
+    position: relative;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 5px 13px;
+    border-radius: 25px;
+    font-size: 13px;
+    width: 48%;
+    box-shadow: 3px 3px 1px rgba(5, 5, 5, 0.2);
+}
+
+.chats .by-me .chat-content:after, .chats .by-me .chat-content:before {
+    right: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.chats .by-me .chat-content:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #fff;
+    border-width: 10px;
+    top: 37%;
+    margin-top: -1px;
+}
+
+.chats .by-me .chat-content:before {
+    border-color: rgba(238, 238, 238, 0);
+    border-right-color: #ccc;
+    border-width: 11px;
+    top: 30%;
+    margin-top: -1px;
+}
+
+.chats .by-other .chat-meta{
+    font-size: 1em;
+    color: #999;
+}
+
+.chats .by-other .chat-content{
+    margin-left: 50%;
+    position: relative;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 5px 13px;
+    border-radius: 25px;
+    font-size: 13px;
+    width: 48%;
+    min-height: 70px;
+    box-shadow: -3px 3px 1px rgba(5, 5, 5, 0.2);
+}
+
+.chats .by-other .chat-content:after, .chats .by-other .chat-content:before {
+    left: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.chats .by-other .chat-content:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-left-color: #fff;
+    border-width: 10px;
+    top: 35%;
+    margin-top: -1px;
+}
+
+.chats .by-other .chat-content:before {
+    border-color: rgba(238, 238, 238, 0);
+    border-left-color: #ccc;
+    border-width: 11px;
+    top: 30%;
+    margin-top: -1px;
+}
+
+
+/*==============================================
+        Reviews Styles
+    =============================================*/
+#reviews {
+    min-height:180px;
+    background-color:#64A2DB;
+	padding:15px;
+}
+#reviews h4 {
+color: #fff;
+line-height: 30px;
+font-size: 16px;
+}
+#reviews .user-img {
+border: 2px solid #fff;
+overflow: hidden;
+border-radius: 50%;
+display: inline-block;
+}
+
+#reviews .img-u {
+   max-height: 90px;
+max-width: 90px;
+}
+
+#reviews .c-black {
+    color:#fff;
+    font-style: italic;
+font-size: 20px;
+padding: 5px;
+}
+
+/*==============================================
+        NOTICE BOX STYLES
+    =============================================*/
+
+.noti-box {
+min-height: 100px;
+color:#fff;
+padding: 20px;
+}
+.noti-box .icon-box {
+display: block;
+float: left;
+margin: 0 15px 10px 0;
+width: 70px;
+height: 70px;
+line-height: 75px;
+vertical-align: middle;
+text-align: center;
+font-size: 40px;
+}
+.bg-color-black {
+background-color: #424242;
+color: #fff;
+}
+.main-text {
+font-size: 25px;
+font-weight: 600;
+}
+.color-bottom-txt {
+font-size: 16px;
+line-height: 30px;
+}
+.panel-back {
+background-color: #929292;
+}
+
+/*==========================================
+   GALLERY/ PORTFOLIO STYLES
+    =====================================================*/
+
+#port-folio {
+    padding-top: 10px; 
+    padding-bottom: 100px; 
+}
+.portfolio-item {
+    border:1px solid #000;
+    margin:3px;
+}
+    .portfolio-item p {
+        padding:12px;
+        color:#fff;
+        line-height:25px;
+    }
+
+.portfolio-item .overlay {
+   
+  background-color: #000;
+  text-align: center;
+  padding-bottom:30px;
+  
+}
+
+/*==========================================
+   GALLERY/ PORTFOLIO FILTER STYLES
+    =====================================================*/
+ul#filters {
+	padding: 0px;
+}
+#filters {
+	margin: 3% 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+}
+	#filters li {
+		display: -webkit-inline-box;
+	}
+	#filters li span {
+		display: block;
+		padding: 5px 4px;
+		text-decoration: none;
+		color: #d51111;
+		cursor: pointer;
+		font-size: 18px;
+	}
+ 	#port-folio .portfolio-item {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-o-box-sizing: border-box;
+		width: 100%;		
+        opacity:.2;
+		float:left;
+		overflow:hidden;
+	}
+
+    @media (max-width: 1024px) {
+
+        .chats .by-me .chat-content{
+            margin-left: 10px;
+        }
+
+        .chats .by-other .chat-content{
+            margin-left: 300px;
+        }
+    }
+
+    @media (max-width: 960px) {
+
+        .chats .by-me .chat-content{
+            margin-left: 0%;
+            width: 55%;
+        }
+
+        .chats .by-other .chat-content{
+            margin-left: 44%;
+            width: 55%;
+        }
+
+        .chat-widget-main {
+            max-height: 470px;
+        }
+    }
+
+    @media (max-width: 840px) {
+
+        .chats .by-me .chat-content{
+            margin-left: 0%;
+            width: 70%;
+        }
+
+        .chats .by-other .chat-content{
+            margin-left: 30%;
+            width: 70%;
+        }
+
+        .chat-widget-main {
+            max-height: 470px;
+        }
+    }
+
+    @media (max-width: 590px) {
+
+        .chats .by-me .chat-content{
+            margin-left: 0%;
+            width: 65%;
+        }
+
+        .chats .by-other .chat-content{
+            margin-left: 34%;
+            width: 65%;
+        }
+
+        .chat-widget-main {
+            max-height: 470px;
+        }
+    }
+
+    @media (max-width: 500px) {
+
+        .chats #li{
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        .chats .by-me .chat-content{
+            width: 100%;
+        }
+
+        .chats .by-other .chat-content{
+            margin-left: 2%;
+            width: 100%;
+        }
+
+        .chat-widget-main {
+            max-height: 440px;
+        }
+    }
+
+    @media (max-width: 360px) {
+
+        .chats .by-me .chat-meta span span{
+            display: none;
+        }
+
+        .chats .by-other .chat-meta span span{
+            display: none;
+        }
+    }
