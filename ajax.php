@@ -3,13 +3,18 @@
     $con = mysqli_connect('localhost', 'root', '', 'squik');
     session_start();
 
+    $users = mysqli_query($con, "SELECT * FROM `friends` WHERE `me` = '" . $_SESSION['username'] . "'");
+    $guys = mysqli_fetch_array($users);
+
+
+
 	/*================================================
 		Fetch and display messages from the database
-		 style=\"background: url('assets/img/droplets.jpg'); background-repeat: no-repeat; background-size: 100% 100%;\"
 	=================================================*/
 	if (isset($_POST['display'])) {
+		$userId = $_POST['userId'];
 
-		$result = mysqli_query($con, "SELECT * FROM `message` WHERE 1 ORDER BY `id` DESC");
+		$result = mysqli_query($con, "SELECT * FROM `message` WHERE `conn` = '" . $_SESSION['username']."-". $userId  . "' OR  `conn` = '" . $userId ."-". $_SESSION['username'] . "' ORDER BY `id` DESC");
 
 		if (mysqli_num_rows($result) == 0) {
 			echo "<label>You currently have no message to display.</label>";
@@ -24,7 +29,7 @@
 	                      </div>
 	                    </div>
 					";
-				} elseif ($row['link'] != $_SESSION['username']) {
+				} elseif ($row['link'] == $userId) {
 					echo "<div class=\"by-other\" id=\"li\">
 	                      <div class=\"chat-content\">
 	                        <div class=\"chat-meta\">".$row['link']."<span class=\"pull-right\">".$row['time']. " <span>| " .$row['date']."</span></span></div>
@@ -39,31 +44,14 @@
 	}
 
 
-	/*===========================================
-				Change profile photo
-	============================================*/
-	if (isset($_POST['profyl'])) {
-		$filename = $_FILES(['profyl']['name']);
-		$location = "assets/img/profile/" . $filename;
-
-		if (move_uploaded_file($_FILES(['profyl'], ['tmp_name']), $location)) {
-			$response['status'] = 'ok';
-		} else {
-			$response['status'] = 'error';
-		}
-
-		echo json_encode($response);
-	}
-                    
 
 	/*===========================================
 				Update status for user
-				<div class=\"chat-widget-right\">".$row['message']."</div>
 	============================================*/
 	if (isset($_POST['stat'])) {
 		$status = $_POST['status'];
 
-		mysqli_query($con, "UPDATE `users` SET `status` = '" . $status . "' WHERE `username` = '" . $_SESSION['username'] . "'");
+		mysqli_query($con, "UPDATE `users` SET `status` = '" . mysqli_real_escape_string($con, $status) . "' WHERE `username` = '" . $_SESSION['username'] . "'");
 		exit();
 	}
 
@@ -76,16 +64,16 @@
 		$name_sql = mysqli_query($con, "SELECT `status` FROM `users` WHERE `Username` = '" . $_SESSION['username'] . "'");
 		$name_query = mysqli_fetch_assoc($name_sql);
 		if ($name_query['status'] == "") {
-			echo "Here there, i am new to squik.<br>";
+			echo "Hey there, i am new to squik.<br>";
 			echo "
-				<a class=\"btn btn-default\" data-toggle=\"modal\" data-target=\"#myModal2\">
+				<a class=\"btn btn-default\" data-toggle=\"modal\" data-target=\"#myModal2\" data-backdrop=\"static\" data-keyboard=\"false\">
 					<i class=\"fa fa-edit\"></i>
 				</a>
 			";
 		} else {
 			echo $name_query['status'];
 			echo "<br>
-				<a class=\"btn btn-default\" data-toggle=\"modal\" data-target=\"#myModal2\">
+				<a class=\"btn btn-default\" data-toggle=\"modal\" data-target=\"#myModal2\" data-backdrop=\"static\" data-keyboard=\"false\">
 					<i class=\"fa fa-edit\"></i>
 				</a>
 			";
@@ -99,10 +87,11 @@
 			Fetch and display status for the other user
 	===================================================*/
 	if (isset($_POST['statu'])) {
-		$name_sql = mysqli_query($con, "SELECT `status` FROM `users` WHERE NOT `Username` = '" . $_SESSION['username'] . "'");
+		$userId = $_POST['userId'];
+		$name_sql = mysqli_query($con, "SELECT `status` FROM `users` WHERE `Username` = '" . $userId . "'");
 		$name_query = mysqli_fetch_assoc($name_sql);
 		if ($name_query['status'] == "") {
-			echo "Here there, i am new to squik.";
+			echo "Hey there, i am new to squik.";
 		} else {
 			echo $name_query['status'];
 		}

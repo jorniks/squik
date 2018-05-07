@@ -21,6 +21,7 @@ $response = 0;
 if(in_array($file_extension,$image_ext)){
     // Upload file
     if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
+        $userId = trim($_POST['userId']);
                 $year = date('Y', time());
                 $month = date('M', time());
                 $day = date('d', time());
@@ -32,6 +33,7 @@ if(in_array($file_extension,$image_ext)){
                 $date = $day."/".$month."/".$year;
 
                 $link = $_SESSION['username'];
+                $conn = $_SESSION['username']."-".$userId;
 
                 $message = "<div class=\"col-md-4\">
                     <div class=\"portfolio-item\">
@@ -41,7 +43,7 @@ if(in_array($file_extension,$image_ext)){
 
                 //$message = "<a href=\"". $location ."\"><img src=\"". $location ."\" class\"img-thumbnail\"></a>";
 
-                mysqli_query($con, "INSERT INTO `message`(`date`, `time`, `message`, `link`) VALUES ('" . $date . "','" . $time . "','" . $message . "','" . $link . "')");
+                mysqli_query($con, "INSERT INTO `message`(`date`, `time`, `message`, `link`, `conn`) VALUES ('" . $date . "','" . $time . "','" . mysqli_real_escape_string($con, $message) . "','" . $link . "','" . $conn . "')");
     }
 }
 	/*===============================================

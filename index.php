@@ -1,6 +1,7 @@
 
 <?
     session_start();
+
     if (!isset($_SESSION['username'])) {
         session_destroy();
         header('Location: login.php');
@@ -32,14 +33,13 @@
         <link href="assets/css/bootstrap.css" rel="stylesheet">
         <!-- FONTAWESOME STYLES-->
         <link href="assets/css/font-awesome.css" rel="stylesheet">
-        <!-- PAGE LEVEL STYLES -->
-        <link href="assets/css/prettyPhoto.css" rel="stylesheet">
         <!--CUSTOM BASIC STYLES-->
         <link href="assets/css/basic.css" rel="stylesheet">
         <!--CUSTOM MAIN STYLES-->
         <link href="assets/css/custom.css" rel="stylesheet">
         <!-- PAGE LEVEL STYLES -->
         <link href="assets/css/bootstrap-fileupload.min.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -72,35 +72,116 @@
                                     <br>
                                     <a href="logout.php" style="color: red;">Log Out</a>
                                 </div>
-                                <div class="row" style="margin-top: 20px;">
-                                    <div class="inside" style="max-width: 100%;">
-                                        <h1 class="page-head-line" id="stats">
+                            </div>
+                        </li>
+                       
+                        <li>
+                            <div id="stats">
 
-                                        </h1>
-                                    </div>
-                                </div>
                             </div>
                         </li>
                     </ul>
 
                     <ul class="nav nav-tabs">
                         <?
-                            while ($guys = mysqli_fetch_assoc($users)) {
+                            $dataArray = array();
+                            $tabPane = "";
+
+                            while ($guys = mysqli_fetch_array($users)) {
+
+                                array_push($dataArray, $guys['friend']);
+
                                 if ($guys['friend'] != $_SESSION['username']) {
-                                    if ($guys['id'] == 1) {
+                                    if ($guys['friend'] == $dataArray[0]) {
                                         echo "
                                             <li class=\"active\">
-                                                <a href=\"#" . $guys['friend'] ."\" data-toggle=\"tab\">" . $guys['friend'] ."</a>
+                                                <a data-toggle=\"tab\" href=\"#" . $guys['friend'] ."\">" . $guys['friend'] ."</a>
                                             </li>
                                         ";
-                                        echo "<input type=\"hidden\" id=\"userId\" value=\"" .$guys['friend'] . "\">";
-                                    } elseif ($guys['id'] > 1) {
+
+                                        $tabPane .= "
+                                            <div class=\"tab-pane fade active in\" id=\"".$guys['friend']."\">
+                                                <div class=\"row\">
+                                                    <div class=\"col-md-12\">
+                                                        <h1 class=\"page-subhead-line\" id=\"statu\">
+
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                                <!-- /. ROW  -->
+
+                                            <div class=\"panel-footer\" style=\"border: none; border-bottom: 1px solid #ddd;\">
+                                                <div class=\"input-group\">
+                                                    <span class=\"input-group-btn\">
+                                                        <button class=\"btn btn-default\" data-toggle=\"modal\" data-target=\"#myModal\"><i class=\"fa fa-paperclip\"></i></button>
+                                                    </span>
+
+                                                    <input type=\"text\" id=\"message\" class=\"form-control\" placeholder=\"Enter Message\" onfocus=\"displayMessage()\" data-emojiable=\"true\">
+
+                                                    <span class=\"input-group-btn\">
+                                                        <button class=\"btn btn-success\" id=\"send\" type=\"button\"><i class=\"fa fa-paper-plane\"></i></button>
+                                                    </span>
+                                                </div>
+                                                <span><small><em id=\"typing\"></em></small></span>
+                                            </div>
+
+                                            <!--========================================
+                                                    Chat body container and messages
+                                            =========================================-->
+                                            <div class=\"chat-widget-main\" style=\"background: url('assets/img/home-enroll-bg.jpg'); background-repeat: no-repeat; background-size: 100% 100%;\">
+                                            <input type=\"hidden\" id=\"userId\" value=\"" .$guys['friend'] . "\">
+                                                <div class=\"chats\" id=\"chatso\">
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                            ";
+                                    } else {
                                         echo "
-                                            <li class=\"active\">
-                                                <a href=\"#" . $guys['friend'] ."\" data-toggle=\"tab\">" . $guys['friend'] ."</a>
+                                            <li class=\"\">
+                                                <a data-toggle=\"tab\" href=\"#" . $guys['friend'] ."\">" . $guys['friend'] ."</a>
                                             </li>
                                         ";
-                                        echo "<input type=\"hidden\" id=\"userId\" value=\"" .$guys['friend'] . "\">";
+
+                                        $tabPane .= "
+                                            <div class=\"tab-pane fade\" id=\"".$guys['friend']."\">
+                                            <div class=\"row\">
+                                                <div class=\"col-md-12\">
+                                                    <h1 class=\"page-subhead-line\" id=\"statu\">
+
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                            <!-- /. ROW  -->
+
+                                            <div class=\"panel-footer\" style=\"border: none; border-bottom: 1px solid #ddd;\">
+                                                <div class=\"input-group\">
+                                                    <span class=\"input-group-btn\">
+                                                        <button class=\"btn btn-default\" data-toggle=\"modal\" data-target=\"#myModal\"><i class=\"fa fa-paperclip\"></i></button>
+                                                    </span>
+
+                                                    <input type=\"text\" id=\"message\" class=\"form-control\" placeholder=\"Enter Message\"  onfocus=\"displayMessage()\"  data-emojiable=\"true\">
+
+                                                    <span class=\"input-group-btn\">
+                                                        <button class=\"btn btn-success\" id=\"send\" type=\"button\"><i class=\"fa fa-paper-plane\"></i></button>
+                                                    </span>
+                                                </div>
+                                                <span><small><em id=\"typing\"></em></small></span>
+                                            </div>
+
+                                            <!--========================================
+                                                    Chat body container and messages
+                                            =========================================-->
+                                            <div class=\"chat-widget-main\" style=\"background: url('assets/img/home-enroll-bg.jpg'); background-repeat: no-repeat; background-size: 100% 100%;\">
+                                            <input type=\"hidden\" id=\"userId\" value=\"" .$guys['friend'] . "\">
+                                                <div class=\"chats\" id=\"chatso\">
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                            ";
                                     }
                                 }
                             }
@@ -112,29 +193,21 @@
 
             <div id="page-wrapper">
                 <div id="page-inner">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="page-subhead-line" id="statu">
-
-                            </h1>
-                        </div>
-                    </div>
-                    <!-- /. ROW  -->
-
-
 
                     <?
                         //Message sending script
 
                         if (isset($_POST['done'])) {
                             $message = trim($_POST['message']);
+                            $userId = trim($_POST['userId']);
+
                             if (!empty($message)) {
                                 
                                 $year = date('Y', time());
                                 $month = date('M', time());
                                 $day = date('d', time());
 
-                                $hour = date('H', time()) - 1;
+                                $hour = date('H', time());
                                 $minute = date('i', time());
 
                                 $time = $hour.":".$minute;
@@ -142,13 +215,37 @@
                                 $date = $day."/".$month."/".$year;
 
                                 $link = $_SESSION['username'];
+                                $conn = $_SESSION['username']."-".$userId;
 
-                                mysqli_query($con, "INSERT INTO `message`(`date`, `time`, `message`, `link`) VALUES ('" . $date . "','" . $wat . "','" . mysqli_real_escape_string($con, $message) . "','" . $link . "')");
+                                mysqli_query($con, "INSERT INTO `message`(`date`, `time`, `message`, `link`, `conn`) VALUES ('" . $date . "','" . $wat . "','" . mysqli_real_escape_string($con, $message) . "','" . $link . "','" . $conn . "')");
                                 exit();
                             }
                         }
                     ?>
 
+
+                    <!--========================================
+                            Modal form for changing status
+                    =========================================-->
+                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Change Status</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="status" placeholder="Status" rows="2"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" id="update" class="btn btn-primary">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                      
 
@@ -157,63 +254,16 @@
                             <div class="panel panel-default" style="border: none; padding: 0;">
                                 <div class="panel-body" style="padding: 0;">
 
-
-                                    <!--========================================
-                                            Modal form for changing status
-                                    =========================================-->
-                                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                    <h4 class="modal-title" id="myModalLabel">Change Status</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" id="status" placeholder="Status" rows="2"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="button" id="update" class="btn btn-primary">Post</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <!--===============================
                                         Type and send text controls
                                         <textarea rows="1" id="message" class="form-control" placeholder="Enter Message" autofocus></textarea>
                                     ================================-->
-                                
+
                                     <div class="tab-content">
-                                        <? echo "<div class=\"tab-pane fade active in\" id=\"".$guys['friend']."\">"; ?>
-
-                                            <div class="panel-footer" style="border: none; border-bottom: 1px solid #ddd;">
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="fa fa-paperclip"></i></button>
-                                                    </span>
-
-                                                    <input type="text" id="message" class="form-control" placeholder="Enter Message" autofocus>
-
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-success" id="send" type="button"><i class="fa fa-paper-plane"></i></button>
-                                                    </span>
-                                                </div>
-                                                <span><small><em id="typing"></em></small></span>
-                                            </div>
-
-                                            <!--========================================
-                                                    Chat body container and messages
-                                            =========================================-->
-                                            <div class="chat-widget-main" style="background: url('assets/img/home-enroll-bg.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
-                                                <div class="chats" id="chatso">
-                                                    
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
+                                        <?
+                                            echo $tabPane;
+                                        ?>
+                                        
                                     </div>
 
 
@@ -283,15 +333,10 @@
         <script src="assets/js/bootstrap.js"></script>
         <!-- PAGE LEVEL SCRIPTS -->
         <script src="assets/js/bootstrap-fileupload.js"></script>
-         <!-- PAGE LEVEL SCRIPTS -->
-        <script src="assets/js/jquery.prettyPhoto.js"></script>
-        <script src="assets/js/jquery.mixitup.min.js"></script>
         <!-- METISMENU SCRIPTS -->
         <script src="assets/js/jquery.metisMenu.js"></script>
         <!-- CUSTOM SCRIPTS -->
         <script src="assets/js/custom.js"></script>
-         <!-- CUSTOM Gallery Call SCRIPTS -->
-        <script src="assets/js/galleryCustom.js"></script>
 
     </body>
 </html>
@@ -305,14 +350,13 @@
             $("#profyl").click();
         });
         
-        $('input[type=file]').on('change', profileUpload);
 
         displayMessage();
         displayStatus();
         displayStatusOther();
-        setInterval(function (){displayMessage()} , 1000);
+        //setInterval(function (){displayMessage()} , 6000);
         //setInterval(function (){isEmpty()} , 1000);
-        setInterval(function (){displayStatus()} , 2000);
+        //setInterval(function (){displayStatus()} , 2000);
         setInterval(function (){displayStatusOther()} , 2000);
 
         function isEmpty(){
@@ -324,29 +368,10 @@
             }
         }
 
-        function profileUpload(event) {
-            files = event.target.files;
-            var data = new FormData();
-
-            //if (!file.type.match('image.*')) {
-                //alert('You can only upload images as profile picture.');
-            //} else {
-                data.append('file', files, files.name);
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'ajax.php', true);
-                xhr.send(data);
-                xhr.onload = function() {
-                    var response = JSON.parse(xhr.responseText);
-                    if (xhr.status === 200 && response.status == 'error') {
-                        alert('Profile change failed, try again.');
-                    }
-                };
-            //}
-        }
 
         $("#send").click(function() {
             var message = $("#message").val();
+            var userId = $("#userId").val();
 
             $.ajax({
                 url: "index.php",
@@ -354,6 +379,7 @@
                 async: false,
                 data: {
                     "done": 1,
+                    "userId": userId,
                     "message": message
                 },
                 success: function(data){
@@ -364,9 +390,10 @@
         });
 
 
-        $('html').keydown(function(e){
-            if(e.which==13){
+        $('#message').keyup(function(e){
+            if(e.keyCode == 13){
                 var message = $("#message").val();
+                var userId = $("#userId").val();
 
                 $.ajax({
                     url: "index.php",
@@ -374,6 +401,7 @@
                     async: false,
                     data: {
                         "done": 1,
+                        "userId": userId,
                         "message": message
                     },
                     success: function(data){
@@ -383,7 +411,6 @@
                 })
             }
         });
-
 
 
         $("#update").click(function() {
@@ -406,9 +433,33 @@
         });
 
 
+        $("#status").keyup(function(e) {
+            if(e.ctrlKey && e.keyCode == 13){
+                e.preventDefault();
+                var status = $("#status").val();
+
+                $.ajax({
+                    url: "ajax.php",
+                    type: "POST",
+                    async: false,
+                    data: {
+                        "stat": 1,
+                        "status": status
+                    },
+                    success: function(data){
+                        $("#status").val('');
+                        $("#myModal2").modal('hide');
+                        displayStatus();
+                    }
+                })
+            }
+        });
+
+
         $('#share').click(function(){
 
                 var fd = new FormData();
+                var userId = $("#userId").val();
                 var files = $('#file')[0].files[0];
                 fd.append('file',files);
                 fd.append('request',1);
@@ -418,6 +469,7 @@
                     url: 'ajaks.php',
                     type: 'post',
                     data: fd,
+                    "userId": userId,
                     contentType: false,
                     processData: false,
                     success: function(response){
@@ -429,27 +481,21 @@
 
     });
 
-    
 
     function displayMessage() {
 
-        var audio = new Audio("assets/sound/definite.mp3");
-        //var user = $("#uname").val();
+        //var audio = new Audio("assets/sound/definite.mp3");
+        var userId = $("#userId").val();
         $.ajax({
             url: "ajax.php",
             type: "POST",
             async: false,
             data: {
                 "display": 1,
+                "userId": userId,
             },
             success: function(d){
-                //if (user != uname) {
-                    //audio.play();
-                    //$("#chatso").html(d);
-                //} else {
-                    $("#chatso").html(d);
-                //}
-                
+                $("#chatso").html(d);
             }
         });
     }
@@ -473,12 +519,14 @@
 
     function displayStatusOther() {
 
+        var userId = $("#userId").val();
         $.ajax({
             url: "ajax.php",
             type: "POST",
             async: false,
             data: {
                 "statu": 1,
+                "userId": userId,
             },
             success: function(d){
                 $("#statu").html(d);

@@ -60,9 +60,9 @@ body {
 
 }
 
-.page-head-line a,
-.page-head-line a:hover,
-.page-head-line a:active {
+div #stats a,
+div #stats a:hover,
+div #stats a:active {
     font-size: 20px;
     background: transparent;
     border: none;
@@ -102,7 +102,6 @@ body {
     min-height: 140px;
     padding: 20px;
     background-color: #4380B8;
-    margin-bottom: 2px;
 }
 
     .user-img-div img {
@@ -160,7 +159,17 @@ body {
         padding: 0;
     }
 
-        .sidebar-collapse .nav > li > a {
+        .sidebar-collapse .nav > li > #stats {
+            font-size: 13px;
+            font-style:italic;
+            color: #fff;
+            background-color: #4380B8;
+            text-shadow: none;
+            padding: 10px;
+            border-right: none;
+        }
+
+        .sidebar-collapse .nav-tabs > li > a {
             color: #fff;
             background: #202020;
             text-shadow: none;
