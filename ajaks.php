@@ -16,6 +16,7 @@ $file_extension = strtolower($file_extension);
 
 // Valid image extensions
 $image_ext = array("jpg","png","jpeg","gif");
+$userId = $_POST['userId'];
 
 $response = 0;
 if(in_array($file_extension,$image_ext)){
@@ -26,7 +27,7 @@ if(in_array($file_extension,$image_ext)){
                 $month = date('M', time());
                 $day = date('d', time());
 
-                $hour = date('h', time()) - 1;
+                $hour = date('h', time());
                 $minute = date('i a', time());
 
                 $time = $hour.":".$minute;

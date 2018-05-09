@@ -130,7 +130,7 @@
                                             =========================================-->
                                             <div class=\"chat-widget-main\" style=\"background: url('assets/img/home-enroll-bg.jpg'); background-repeat: no-repeat; background-size: 100% 100%;\">
                                             <input type=\"hidden\" id=\"userId\" value=\"" .$guys['friend'] . "\">
-                                                <div class=\"chats\" id=\"chatso\">
+                                                <div class=\"chats\">
                                                     
                                                 </div>
                                                 
@@ -175,7 +175,7 @@
                                             =========================================-->
                                             <div class=\"chat-widget-main\" style=\"background: url('assets/img/home-enroll-bg.jpg'); background-repeat: no-repeat; background-size: 100% 100%;\">
                                             <input type=\"hidden\" id=\"userId\" value=\"" .$guys['friend'] . "\">
-                                                <div class=\"chats\" id=\"chatso\">
+                                                <div class=\"chats\">
                                                     
                                                 </div>
                                                 
@@ -495,7 +495,7 @@
                 "userId": userId,
             },
             success: function(d){
-                $("#chatso").html(d);
+                $(".chats").html(d);
             }
         });
     }
